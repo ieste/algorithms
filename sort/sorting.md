@@ -79,4 +79,13 @@ is below a certain level (say 5 items).
 ### Heap Sort
 
 
+## Non Comparison-Based Sorting Algorithms
+
+The lower bound on time complexity of n log n can be overcome using algorithms that are
+not comparison-based. 
+
+### Counting Sort
+
+### Radix Sort
+
 
