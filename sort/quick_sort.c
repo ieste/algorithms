@@ -10,16 +10,16 @@
 // 			- sort the part of A' before p recursively
 // 			- sort the part of A' after p recursively
 //
-// 	Analysis:
+// Analysis:
 // 		In the worst case, quick sort's running time will be O(n^2), no better than selection sort.
 // 		However, in expectation, the running time is O(n log n). That is, on average it will have
 // 		a running time of O(n log n)
 //
-// 	Mistakes I made while implementing the algorithm:
+// Mistakes I made while implementing the algorithm:
 // 		accidentally freed B to early
 //		when sorting the upper half, calculated length as n - r + 1 rather than n - r - 1
 //
-//	Notes on my implementation:
+// Notes on my implementation:
 //		It is possible to do this without making a copy of A, however such a solution might
 //		be slightly less readable.
 //
