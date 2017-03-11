@@ -29,10 +29,25 @@ A stack is a First-in-Last-out data structure. It has the following operations:
 * Push: add an element to the top of the stack
 * Pop: remove the most recently added element from the stack
 
+A stack can be implemented with an array or a linked list. Push and pop operations
+can be completed in amortised constant time with either data structure, however a 
+linked list implementation does not require dynamic resizing as an array 
+implementation would.
+
 ## Queue
 A queue is a First-in-First-out data structure. It has the following operations:
 * Enqueue: add an element to the end of the queue
 * Dequeue: remove the element at the front of the queue
+
+Similarly to a stack, a queue can be implemented with either an array or a linked
+list, and achieve amortized constant time enqueue and dequeue operations. 
+
+### Priority Queue
+A priority queue stores n integers and supports the following operations:
+* Insert: adds a new integer
+* Delete-min: removes the smallest integer and returns it
+
+
 
 ## Hash Table
 The idea of hashing is to divide a dataset into *m* disjoint subsets such that only
@@ -78,6 +93,65 @@ a list of length O(1) would take O(1) time.
 
 
 ## Graphs
+A undirected graph is a pair (V, E) where:
+* V is a set of elements, each of which is called a node or vertex.
+* E is a set of pairs (u, v) such that u and v are distinct nodes   
+  and if (u, v) is in E then (v, u) is also in E.
+
+A **path** is a sequence of nodes (v1, v2, ..., vk) such that for every
+i in [1, k-1] there is an edge between vi and vi+1.
+
+A **cycle** is a path such that v1 = vk and v1, v2, ..., vk-1 are distinct.
+
+An undirected graph is **connected** if, for any two distinct verticies u and
+v, there exists a path from u to v.
+
 
 ## Trees
+A tree is a connected, undirected graph that contains no cycles. A tree with
+n nodes will have n - 1 edges.
+
+A **binary tree** is a tree where every node has at most 2 child nodes. This
+can be generalised to a **k-ary tree** where each node has at most k child 
+nodes.
+
+A binary tree of height h is **complete** if:
+* levels 0 to h - 2 are full
+* at level h - 1, the leaf nodes are as far left as possible
+
+A complete binary tree with n >= 2 nodes has height O(log n).
+
+### Binary Heap
+Let S be a set of n integers. A binary heap on S is a binary tree T satisfying:
+* T is complete
+* Every node u in T corresponds to a distinct integer in S (the integer is  
+  called the key of u)
+* If u is an internal node (not a leaf) the key of u is smaller than those of   
+  its child nodes
+
+Implementing insertion and deletion as described below allows the implementation
+of a priority queue with O(log n) insertion and deletion. 
+
+#### Insertion Algorithm
+1. Create a leaf node z and put into T ensuring T remains complete
+2. Set u to z
+3. If u is the root, return
+4. If the key of u is greater than the key of its parent p, return
+5. Otherwise, swap the keys of u and p, set u to p then jump to step 3
+
+
+#### Delete-Min Algorithm
+1. Report the key of the root
+2. Identify the rightmost leaf z at the bottom level of T
+3. Delete z and store the key of z at the root
+4. Set u to the root
+5. If u is a leaf, return
+6. If the key of u < the keys of its children, return
+7. Otherwise, let v be the child of u with a smaller key. Swap the keys   
+   of u and v, set u to v and repeat from step 5.
+
+#### Finding the Rightmost Leaf
+Inspecting the number of nodes (n) in binary, ignore the MSB. Then, scanning
+the remaining bits from most to least significant, move left if the next bit 
+is 0, otherwise move right.
 
