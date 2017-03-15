@@ -155,3 +155,102 @@ Inspecting the number of nodes (n) in binary, ignore the MSB. Then, scanning
 the remaining bits from most to least significant, move left if the next bit 
 is 0, otherwise move right.
 
+#### Array Implementation
+A complete binary tree can be stored in an array (linearized) such that:
+* Nodes at a higher level appear before those at a lower level
+* Within the same level, nodes are ordered from left to right
+
+With this implementation, if u is stored at A[i] then the left child of
+u is at A[2i] and the right child at A[2i + 1]. In this case, we also
+know the parent of A[i] is stored at A[floor(i/2)].
+
+A binary heap can be constructed from an array in O(n) time.
+First, implement a root-fix operation as follows:
+* Input: a binary tree with root r. It is guaranteed that:  
+    * the left subtree of r is a binary heap
+	* the right subtree of r is a binary heap
+* Using the same method as described in delete-min, correct the binary heap
+The binary heap can then be constructed with the following simple algorithm:
+* For each i = n to 1:  
+   * Perform root-fix on the subtree of T rooted at A[i]
+
+### Binary Search Tree
+A binary search tree enables a predecessor search, i.e. given an integer q,
+return the largest value in a set that is less than or equal to q. A binary
+search tree supports the following operations:
+* Predecessor Query - in O(log n) time
+* Insertion - in O(log n) time
+* Deletion - in O(log n) time
+
+In a binary search tree, it must hold that: the key of a node is larger than all
+the keys in the left subtree of that node, and smaller than all the keys in the
+right subtree. A given set can have a number of valid binary search tree representations.
+
+In order to support O(log n) operations, a tree must be balanced. A binary tree is
+**balanced** if the following holds for every internal node u:
+* the height of the left subtree of u differs from that of the right subtree of u  
+  by at most 1.
+
+#### Predecessor Query Algorithm
+Given a balanced BST T, a predecessor query can be answered with the following 
+algorithm:
+1. set p to negative infinity
+2. set u to the root of T
+3. If u is nil, return p
+4. If the key of u is q, set p to q and return q
+5. If the key of u is > q, set u to the left child and repeat from step 3
+6. Otherwise, set p to the key of u and u to the right child, and repeat   
+   from step 3.
+
+A successor query can be performed with a slight modification to the above
+algorithm.
+
+#### AVL Tree
+An AVL tree is a balanced binary search tree where every internal node u
+stores the heights of its left and right subtrees. By storing the subtree
+heights, an internal nodde knows whether it has become imbalanced.
+
+A **2-level imbalance** occurs where:
+* there is a difference of 2 in the heights of the left and right subtrees  
+  of a node u
+* all the proper descendants of u are balanced
+
+In order to perform insertion and deletion, we need to be able to remedy a 
+2-level imbalance. There are four cases: a left-left, left-right, right-left,
+or right-right imbalance. A left-left or right-right imbalance can be remedied 
+by changing only three pointers. A left-right or right-left imbalance can
+be remedied by changing five pointers. (Better illustrated with pictures)...
+
+##### Insertion
+Insertion is performed by traversing the binary search tree as if we were
+searching for the element we wish to insert. Once we hit a "dead end" (there
+is no node in the direction we want to travel), we insert the node for the
+element we are adding at that point. We then travel back up the tree, incrementing
+the subtree height of each parent by 1. If an imbalance is detected, remedy
+the imbalance at the lowest node.
+
+##### Deletion
+First, traverse the tree to find the node, u, that we wish to delete. 
+* **Case 1:** If it is a leaf node, it can simply be deleted.
+* **Case 2:** If u has a right subtree:
+  1. Find the node v storing the successor s of e
+  2. Set the key of u to s
+  3. If v is a leaf node, remove it from the tree
+  4. Otherwise, v must have a right child w which is a leaf.  
+     Set the key of v to that of w and remove w from the tree.
+* **Case 3:** If u hase no right subtree, it must hold that u has a  
+  left child v, which is a leaf. Set the key of u to that of v and  
+  remove v from the tree.
+
+At this point, we have essentially descended a root-to-leaf path and
+removed a leaf node. We now want to update subtree height values for
+the nodes in this path in the bottom-up order. As in insertion, remedy
+imbalances in a bottom-up order (however for deletions we may need to
+remedy multiple imbalances).
+At this point, we have essentially descended a root-to-leaf path and
+removed a leaf node. We now want to update subtree height values for
+the nodes in this path in the bottom-up order. As in insertion, remedy
+imbalances in a bottom-up order (however for deletions we may need to
+remedy multiple imbalances).
+
+
