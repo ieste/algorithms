@@ -1,0 +1,50 @@
+# Competitive Programming
+
+## 1. Introduction and Ad-Hoc Problems
+Pretty self-explanatory. I completed a few of the listed ad-hoc problems on
+UVa:
+ * 11172: Relational Operator
+ * 10141: Request for Proposal
+ * 462: Bridge Hand Evaluator
+ * 161: Traffic Lights
+
+
+## 2. Data Structures and Libraries
+### 2.2 Linear Data Structures
+A data structure whose elements form a linear sequence. There are two
+operations commonly performed on arrays worth discussing in more depth
+- sorting and searching.
+
+#### Sorting
+* O(n^2) comparison-based sorting algorithms: bubble/selection/insertion sort
+* O(n log n) comparison-based sorting algorithms: merge/heap/quick sort
+* Special purpose O(n) sorting algorithms: counting/radix/bucket sort
+
+Bucket sort assumes elements are uniformly distributed. This means that once
+they're split into buckets, the individual buckets shouldn't require much
+(or any) sorting, giving us an O(n) time complexity.
+
+If writing c, the standard library provides qsort(), which takes a pointer to
+an array, the size of the array and a comparator function.
+
+
+#### Searching
+* O(n) linear search - simply scan the whole array
+* O(log n) Binary Search - the array must first be sorted
+* O(1) with hashing
+
+#### Other Linear Data Structures
+* bitmasks
+* linked lists - see UVa 11988 - needs to be implemented in C
+* stack - LIFO
+* queue - FIFO
+* deque - supports both
+
+
+3. Problem Solving Paradigms
+4. Graphs
+5. Mathematics
+6. String Processing
+7. (Computational) Geometry
+8. More Advanced Topics
+9. Rare Topics
